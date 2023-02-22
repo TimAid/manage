@@ -14,8 +14,6 @@ class AnaliticsViewController: UIViewController {
 
         view.backgroundColor = .yellow
     }
-    
-
     /*
     // MARK: - Navigation
 

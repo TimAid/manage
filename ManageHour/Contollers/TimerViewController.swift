@@ -14,8 +14,6 @@ class TimerViewController: UIViewController {
 
         view.backgroundColor = .green
     }
-    
-
     /*
     // MARK: - Navigation
 

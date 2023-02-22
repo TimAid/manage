@@ -8,15 +8,21 @@
 import UIKit
 
 class HomeViewController: UIViewController {
-
-    //MARK: - TableView
+    
+    // MARK: - TableView
     private let table: UITableView = {
         let tableView = UITableView(frame: .zero, style: .grouped)
-        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
+        tableView.translatesAutoresizingMaskIntoConstraints = false
+        tableView.register(HomeTableViewCell.self, forCellReuseIdentifier: HomeTableViewCell.identifier)
+        tableView.estimatedRowHeight = 50
+        tableView.backgroundColor = UIColor.clear
+        tableView.rowHeight = UITableView.automaticDimension
+        tableView.tableFooterView = UIView()
+        tableView.separatorStyle = .none
         return tableView
     }()
     
-    //MARK: - viewDidLoad
+    // MARK: viewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -29,38 +35,40 @@ class HomeViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         
         configureNavBar()
-        
     }
     
-    //MARK: - ConfigureNavBar
+    // MARK: ConfigureNavBar
     private func configureNavBar() {
         
         navigationItem.title = "ManageHour"
-        
+    
         let appearance = UINavigationBarAppearance()
         appearance.configureWithDefaultBackground()
-        appearance.backgroundColor = .systemCyan
-        
+        appearance.backgroundColor = .systemPink
+//
         appearance.titleTextAttributes = [.foregroundColor: UIColor.white]
         appearance.largeTitleTextAttributes = [.foregroundColor: UIColor.white]
-
+//
         navigationController?.navigationBar.tintColor = .white
         navigationController?.navigationBar.prefersLargeTitles = true
-        
+
         navigationController?.navigationBar.scrollEdgeAppearance = appearance
         navigationController?.navigationBar.standardAppearance = appearance
         navigationController?.navigationBar.compactAppearance = appearance
-        navigationController?.hidesBarsOnSwipe =  true
+        navigationController?.navigationBar.compactScrollEdgeAppearance = appearance
+        
         
         let historyButton = UIButton()
-        historyButton.setImage(UIImage(systemName: "list.dash"), for: .normal)
+        let historyImage = UIImage(systemName: "list.dash", withConfiguration: UIImage.SymbolConfiguration(pointSize: 25, weight: .bold))
+        historyButton.setImage(historyImage, for: .normal)
         historyButton.tintColor = .white
         historyButton.adjustsImageSizeForAccessibilityContentSizeCategory = true
         historyButton.translatesAutoresizingMaskIntoConstraints = false
         historyButton.addTarget(self, action: #selector(historyBarButtonPressed), for: .touchUpInside)
         
         let magicButton = UIButton()
-        magicButton.setImage(UIImage(systemName: "wand.and.stars"), for: .normal)
+        let magicImage = UIImage(systemName: "wand.and.stars", withConfiguration: UIImage.SymbolConfiguration(pointSize: 25, weight: .bold))
+        magicButton.setImage(magicImage, for: .normal)
         magicButton.translatesAutoresizingMaskIntoConstraints = false
         magicButton.addTarget(self, action: #selector(magicBatButtonPressed), for: .touchUpInside)
         
@@ -71,23 +79,22 @@ class HomeViewController: UIViewController {
         
         let historyButtonConstraints = [
             historyButton.leadingAnchor.constraint(equalTo: targetView.trailingAnchor, constant: -100),
-            historyButton.bottomAnchor.constraint(equalTo: targetView.bottomAnchor, constant: -15)
+            historyButton.bottomAnchor.constraint(equalTo: targetView.bottomAnchor, constant: -12)
         ]
         
         let magicButtonConstraints = [
-            magicButton.leadingAnchor.constraint(equalTo: targetView.trailingAnchor, constant: -60),
-            magicButton.bottomAnchor.constraint(equalTo: targetView.bottomAnchor, constant: -15)
+            magicButton.leadingAnchor.constraint(equalTo: targetView.trailingAnchor, constant: -50),
+            magicButton.bottomAnchor.constraint(equalTo: targetView.bottomAnchor, constant: -12)
         ]
         
         NSLayoutConstraint.activate(historyButtonConstraints)
         NSLayoutConstraint.activate(magicButtonConstraints)
     }
-    
     override func viewDidLayoutSubviews() {
         table.frame = view.frame
     }
     
-    //MARK: - objc methods
+    // MARK: objc methods
     @objc private func historyBarButtonPressed() {
         print("history")
     }
@@ -95,27 +102,18 @@ class HomeViewController: UIViewController {
     @objc private func magicBatButtonPressed() {
         print("magic")
     }
-    
-    
 }
-
-//MARK: - UITableViewDelegate, UITableViewDataSource
+// MARK: UITableViewDelegate, UITableViewDataSource
 extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        
         return 20
     }
-    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: HomeTableViewCell.identifier, for: indexPath) as? HomeTableViewCell else { return UITableViewCell() }
         
-        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
-        
-        var content = cell.defaultContentConfiguration()
-        content.text = "test"
-        cell.contentConfiguration = content
-        
+//        var content = cell.defaultContentConfiguration()
+//        content.text = "test"
+//        cell.contentConfiguration = content
         return cell
     }
-    
-    
 }

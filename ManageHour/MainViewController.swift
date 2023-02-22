@@ -12,23 +12,19 @@ class MainViewController: UITabBarController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        view.backgroundColor = .systemPink
-        let vc1 = UINavigationController(rootViewController: HomeViewController())
-        let vc2 = UINavigationController(rootViewController: TaskViewController())
-        let vc3 = UINavigationController(rootViewController: TimerViewController())
-        let vc4 = UINavigationController(rootViewController: AnaliticsViewController())
+        view.backgroundColor = .systemGray5
+        let navView1 = UINavigationController(rootViewController: HomeViewController())
+        let navView2 = UINavigationController(rootViewController: TaskViewController())
+        let navView3 = UINavigationController(rootViewController: TimerViewController())
+        let navView4 = UINavigationController(rootViewController: AnaliticsViewController())
         
-        vc1.tabBarItem.image = UIImage(systemName: "clock")
-        vc2.tabBarItem.image = UIImage(systemName: "note.text.badge.plus")
-        vc3.tabBarItem.image = UIImage(systemName: "hourglass.badge.plus")
-        vc4.tabBarItem.image = UIImage(systemName: "tortoise")
+        navView1.tabBarItem.image = UIImage(systemName: "clock")
+        navView2.tabBarItem.image = UIImage(systemName: "note.text.badge.plus")
+        navView3.tabBarItem.image = UIImage(systemName: "hourglass.badge.plus")
+        navView4.tabBarItem.image = UIImage(systemName: "tortoise")
         
         tabBar.tintColor = .systemBlue
         tabBar.backgroundColor = .white
-        setViewControllers([vc1, vc2, vc3, vc4], animated: true)
+        setViewControllers([navView1, navView2, navView3, navView4], animated: true)
     }
-    
-
-
 }
-

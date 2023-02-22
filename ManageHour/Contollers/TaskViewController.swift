@@ -14,8 +14,6 @@ class TaskViewController: UIViewController {
 
         view.backgroundColor = .blue
     }
-    
-
     /*
     // MARK: - Navigation
 
